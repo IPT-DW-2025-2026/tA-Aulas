@@ -19,11 +19,11 @@ namespace Aulas.Pages.Degrees
             _context = context;
         }
 
-        public IList<Degree> Degree { get;set; } = default!;
+        public IList<Degree> ListOfDegrees { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Degree = await _context.Degrees.ToListAsync();
+            ListOfDegrees = await _context.Degrees.ToListAsync();
         }
     }
 }

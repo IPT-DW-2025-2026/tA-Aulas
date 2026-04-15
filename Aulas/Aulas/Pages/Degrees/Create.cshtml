@@ -1,0 +1,52 @@
+﻿@page
+@model Aulas.Pages.Degrees.CreateModel
+
+@{
+ViewData["Title"] = "Adicionar curso";
+}
+        
+<h1>Adicionar curso</h1>
+        
+   
+<hr />
+<div class="row">
+    <div class="col-md-6">
+
+    <form method="post" enctype="multipart/form-data">
+        @*  enctype="multipart/form-data"  ---> permite enviar ficheiros pelo form  *@
+   
+        
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Degree.Name" class="control-label"></label>
+                <input asp-for="Degree.Name" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Degree.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Degree.Logotype" class="control-label"></label>
+                @* <input asp-for="Degree.Logotype" class="form-control" /> *@
+                <input  asp-for="ImagemLogo" 
+                        type="file"
+                        accept=".png,.jpg,.jpeg"
+                        class="form-control" />
+                <span asp-validation-for="ImagemLogo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Adicionar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Regressar à listagem</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

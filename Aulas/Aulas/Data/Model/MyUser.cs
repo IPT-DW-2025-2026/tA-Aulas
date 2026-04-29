@@ -25,6 +25,7 @@ namespace Aulas.Data.Model {
       [Display(Name = "Data Nascimento")]
       [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
       [DataType(DataType.Date)]
+      [Required(ErrorMessage = "A {0} é de preenchimento obrigatório.")]
       public DateOnly BirthDate { get; set; }
 
       /// <summary>
@@ -32,6 +33,8 @@ namespace Aulas.Data.Model {
       /// </summary>
       [Display(Name = "Telemóvel")]
       [StringLength(19)]
+      [RegularExpression(@"\+?[0-9]{9,18}", 
+         ErrorMessage = "O número de telemóvel deve conter apenas dígitos (entre 9 e 18) e pode começar com um sinal de mais.")]
       public string? CellPhone { get; set; }
 
       /// <summary>

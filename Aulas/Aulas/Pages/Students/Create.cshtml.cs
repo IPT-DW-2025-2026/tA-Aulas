@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Aulas.Data;
 using Aulas.Data.Model;
+using System.Globalization;
 
 namespace Aulas.Pages.Students {
    public class CreateModel:PageModel {
@@ -26,6 +27,7 @@ namespace Aulas.Pages.Students {
       [BindProperty]
       public Student Student { get; set; } = default!;
 
+
       // For more information, see https://aka.ms/RazorPagesCRUD.
       public async Task<IActionResult> OnPostAsync() {
 
@@ -34,8 +36,28 @@ namespace Aulas.Pages.Students {
             return Page();
          }
 
-         _context.Students.Add(Student);
-         await _context.SaveChangesAsync();
+
+         // atribuir o valor auxiliar da Propina ao atributo da Propina,
+         // convertendo de string para decimal
+         Student.TuitionFee = Convert.ToDecimal(Student.TuitionFeeAux.Replace('.', ','),
+                                                new CultureInfo("pt-PT"));
+
+         try {
+            _context.Students.Add(Student);
+            await _context.SaveChangesAsync();
+         }
+         catch(Exception) {
+            /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+             * Tratar a exceção de forma adequada, por exemplo, 
+             * mostrando uma mensagem de erro para o utilizador, ou
+             * redirecionando para uma página de erro, etc.
+             * NUNCA se mostra a mensagem do 'throw' para o utilizador final, 
+             * porque pode conter informações sensíveis sobre a aplicação, 
+             * como por exemplo, o nome da base de dados, o nome do servidor, etc.
+             * +++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+            throw;
+         }
+
 
          return RedirectToPage("./Index");
       }
